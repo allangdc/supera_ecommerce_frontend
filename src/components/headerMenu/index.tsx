@@ -4,7 +4,21 @@ import { NextPage } from "next";
 import MoneyOffIcon from "@mui/icons-material/MoneyOff";
 import * as S from "./style";
 
-const HeaderMenu: NextPage = () => {
+type Props = {
+  username?: string;
+  title: string;
+};
+
+const HeaderMenu: NextPage<Props> = (props: Props) => {
+  const { username, title } = props;
+
+  const AvatarShort = (text: string | undefined) => {
+    if (text) {
+      return text.substring(0, 2).toUpperCase();
+    }
+    return undefined;
+  };
+
   return (
     <AppBar position="static" elevation={0}>
       <Toolbar variant="dense">
@@ -17,11 +31,11 @@ const HeaderMenu: NextPage = () => {
           >
             <MoneyOffIcon fontSize="large" />
           </IconButton>
-          <Typography variant="h6">E-Commerce</Typography>
+          <Typography variant="h6">{title}</Typography>
         </S.InitIcons>
         <S.EndIcons>
-          <Typography variant="subtitle1">Username</Typography>
-          <Avatar />
+          <Typography variant="subtitle1">{username || "Anonimous"}</Typography>
+          <Avatar>{AvatarShort(username)}</Avatar>
         </S.EndIcons>
       </Toolbar>
     </AppBar>

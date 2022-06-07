@@ -4,6 +4,8 @@ import type { AppProps } from "next/app";
 import HeaderMenu from "../components/headerMenu";
 import createEmotionCache from "../utility/createEmotionCache";
 import { CacheProvider, EmotionCache } from "@emotion/react";
+import useUserContext, { UserContextProvider } from "../context/userContext";
+import Layout from "./layout";
 
 const clientSideEmotionCache = createEmotionCache();
 
@@ -16,12 +18,11 @@ function MyApp(props: MyAppProps) {
 
   return (
     <CacheProvider value={emotionCache}>
-      <div>
-        <header>
-          <HeaderMenu />
-        </header>
-        <Component {...pageProps} />
-      </div>
+      <UserContextProvider>
+        <Layout>
+          <Component {...pageProps} />
+        </Layout>
+      </UserContextProvider>
     </CacheProvider>
   );
 }
