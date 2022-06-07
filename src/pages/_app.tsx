@@ -18,7 +18,7 @@ function MyApp(props: MyAppProps) {
     <CacheProvider value={emotionCache}>
       <div>
         <header>
-          <HeaderMenu />
+          <HeaderMenu title={"E-Commerce"} />
         </header>
         <Component {...pageProps} />
       </div>
