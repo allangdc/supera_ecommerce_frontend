@@ -4,12 +4,14 @@ import { Button, Paper, TextField, Typography } from "@mui/material";
 import * as S from "./_style";
 import authService from "../../services/authService";
 import { useRouter } from "next/router";
+import useUserContext from "../../context/userContext/index";
 
 const LoginScreen: NextPage = () => {
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [errMsg, setErrMsg] = useState<string>();
   const router = useRouter();
+  const { setMyUser } = useUserContext();
 
   const onFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -21,6 +23,7 @@ const LoginScreen: NextPage = () => {
     } else if (ret.status === 200) {
       setErrMsg(undefined);
       router.push("/");
+      setMyUser({ username: username });
     } else {
       setErrMsg("Não é possível fazer login");
       console.log("Não é possível fazer login: ", ret.status);
